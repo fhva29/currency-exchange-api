@@ -9,8 +9,9 @@ from .schemas import *
 
 # Environment variables
 load_dotenv()
-EXTERNAL_API_URL = os.getenv("EXTERNAL_API_URL")
-API_KEY = os.getenv("API_KEY")
+# Use the same environment variable names described in the README
+CURRENCY_API_URL = os.getenv("CURRENCY_API_URL")
+API_KEY = os.getenv("CURRENCY_API_KEY")
 XML_FILE_PATH = "available_combinations.xml"
 
 # API code
@@ -69,7 +70,7 @@ def get_exchange_rate(request: ExchangeRateRequest):
     try:
         headers = {"x-api-key": API_KEY}
         response = requests.get(
-            f"{EXTERNAL_API_URL}/last/{request.base_currency}-{request.target_currency}",
+            f"{CURRENCY_API_URL}/last/{request.base_currency}-{request.target_currency}",
             headers=headers,
         )
 
@@ -126,7 +127,7 @@ def get_exchange_history(request: ExchangeHistoryRequest):
 
         headers = {"x-api-key": API_KEY}
         response = requests.get(
-            f"{EXTERNAL_API_URL}/daily/{request.base_currency}-{request.target_currency}/?start_date={start_date_formatted}&end_date={end_date_formatted}",
+            f"{CURRENCY_API_URL}/daily/{request.base_currency}-{request.target_currency}/?start_date={start_date_formatted}&end_date={end_date_formatted}",
             headers=headers,
         )
 
@@ -172,7 +173,7 @@ def get_exchange_last_days(request: ExchangeLastDaysRequest):
     try:
         headers = {"x-api-key": API_KEY} if API_KEY else {}
         response = requests.get(
-            f"{EXTERNAL_API_URL}/daily/{request.base_currency}-{request.target_currency}/{request.days}",
+            f"{CURRENCY_API_URL}/daily/{request.base_currency}-{request.target_currency}/{request.days}",
             headers=headers,
         )
 
@@ -217,7 +218,7 @@ def convert_currency(request: ConvertCurrencyRequest):
     try:
         headers = {"x-api-key": API_KEY}
         response = requests.get(
-            f"{EXTERNAL_API_URL}/last/{request.base_currency}-{request.target_currency}",
+            f"{CURRENCY_API_URL}/last/{request.base_currency}-{request.target_currency}",
             headers=headers,
         )
 
